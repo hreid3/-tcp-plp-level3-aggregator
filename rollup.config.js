@@ -1,5 +1,6 @@
 import typescript from 'rollup-plugin-typescript3'
 import async from 'rollup-plugin-async'
+import { terser } from "rollup-plugin-terser";
 import pkg from './package.json'
 export default {
   input: 'src/index.ts',
@@ -18,6 +19,7 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
+    terser(),
     async(),
     typescript({
       typescript: require('typescript'),
