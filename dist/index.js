@@ -6,10 +6,10 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var tslib_1 = require('tslib');
 var axios = _interopDefault(require('axios'));
-var get = _interopDefault(require('lodash.get'));
 
 function __async(g){return new Promise(function(s,j){function c(a,x){try{var r=g[x?"throw":"next"](a);}catch(e){j(e);return}r.done?s(r.value):Promise.resolve(r.value).then(c,d);}function d(e){c(e,1);}c();})}
 
+var getResponse = function (response) { return response && response.data && response.data.response; };
 var getCategoryCount = function (options, categoryL3) { return __async(function () {
     var count, params, response, ex_1;
     return tslib_1.__generator(this, function (_a) {
@@ -23,7 +23,7 @@ var getCategoryCount = function (options, categoryL3) { return __async(function 
                 return [4 /*yield*/, axios.get(options.unbxdBase + "/category", { headers: options.headers, params: params })];
             case 2:
                 response = _a.sent();
-                count = get(response, 'data.response.numberOfProducts', 0);
+                count = getResponse(response) && getResponse(response).numberOfProducts || 0;
                 return [3 /*break*/, 4];
             case 3:
                 ex_1 = _a.sent();
@@ -34,12 +34,12 @@ var getCategoryCount = function (options, categoryL3) { return __async(function 
 }()); };
 var fetchL3Categories = function (options) {
     return new Promise(function (res, rej) { return __async(function () {
-        var _a, _b, start, rows, end, rowsCntr, firstResponse, load, calcStart, calcRows, remaining, _i, _c, catId, l3Rows, unbxdResponse, e_1;
+        var _a, _b, start, rows, end, rowsCntr, firstResponse, load, calcStart, calcRows, remaining, _i, _c, catId, l3Rows, unbxdResponse, response, e_1;
         return tslib_1.__generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
                     _d.trys.push([0, 7, , 8]);
-                    _b = get(options, "parameters"), start = _b.start, rows = _b.rows;
+                    _b = options.parameters, start = _b.start, rows = _b.rows;
                     end = start + rows;
                     rowsCntr = 0;
                     firstResponse = null;
@@ -73,7 +73,8 @@ var fetchL3Categories = function (options) {
                         firstResponse = unbxdResponse;
                     }
                     else {
-                        (_a = firstResponse.data.response.products).push.apply(_a, unbxdResponse.data.response.products);
+                        response = getResponse(firstResponse);
+                        (_a = response.products).push.apply(_a, unbxdResponse.data.response.products);
                     }
                     remaining -= calcRows;
                     _d.label = 4;
