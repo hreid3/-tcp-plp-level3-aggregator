@@ -25,6 +25,7 @@
     "dtslint": "^0.6.1",
     "jest": "^24.7.1",
     "rollup": "^1.10.0",
+    "rollup-plugin-async": "^1.2.0",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript3": "^1.1.2",
     "rollup-plugin-uglify": "^6.0.2",
@@ -35,7 +36,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "rollup-plugin-async": "^1.2.0",
     "tslib": "^1.9.3"
   }
 }

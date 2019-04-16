@@ -3,7 +3,6 @@ import axios from 'axios';
 export interface ServiceParameters {
   start: number;
   rows: number;
-
   [propName: string]: any;
 }
 
