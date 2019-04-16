@@ -92,7 +92,8 @@ export const fetchL3Categories = (options: Options): Promise<any> => {
                   ...options.parameters,
                   'p-id': `categoryPathId:"${options.categoryPathL2}>${catId}"`,
                   start: calcStart,
-                  rows: calcRows
+                  rows: calcRows,
+                  facet: false,
                 }});
           if (!firstResponse) {
             firstResponse = unbxdResponse;
