@@ -3,7 +3,7 @@ import { Options, fetchL3Categories } from './src';
 const parameters = {
   pagetype: 'boolean',
   'p-id': `categoryPathId:"47511>49012"`, // TODO: Dynamically generate
-  rows: 139,
+  rows: 10,
   start: 40,
   variants: true,
   'variants.count': 0,
