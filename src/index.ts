@@ -72,6 +72,7 @@ export const fetchL3Categories = (options: Options): Promise<any> => {
       let calcRows = 0;
       let remaining = rows;
       const categoryCounts = await getCategoryCounts(options);
+      const numberOfProducts = Object.keys(categoryCounts).reduce((acc, curr) => acc + categoryCounts[curr], 0);
       for (const catId of options.categoryIdsL3) {
         const l3Rows = categoryCounts[catId];
         if (l3Rows + rowsCntr > start) {
@@ -84,7 +85,16 @@ export const fetchL3Categories = (options: Options): Promise<any> => {
           } else {
             calcRows = l3Rows < remaining ? l3Rows : remaining;
           }
-          const unbxdResponse = await axios.get(`${options.unbxdBase}/category`, {headers: options.headers, params: {...options.parameters, start: calcStart, rows: calcRows}});
+          const unbxdResponse = await axios
+            .get(`${options.unbxdBase}/category`,
+              {
+                headers: options.headers,
+                params: {
+                  ...options.parameters,
+                  'p-id': `categoryPathId:"${options.categoryPathL2}>${catId}"`,
+                  start: calcStart,
+                  rows: calcRows
+                }});
           if (!firstResponse) {
             firstResponse = unbxdResponse;
           } else {
@@ -97,6 +107,9 @@ export const fetchL3Categories = (options: Options): Promise<any> => {
         if (rowsCntr >= end || !remaining) {
           break;
         }
+      }
+      if (firstResponse) {
+        firstResponse.data.response.numberOfProducts = numberOfProducts;
       }
       res(firstResponse);
     } catch (e) {
