@@ -2,9 +2,9 @@ import { Options, fetchL3Categories } from './src';
 
 const parameters = {
   pagetype: 'boolean',
-  'p-id': `categoryPathId:"47511>49012"`, // TODO: Dynamically generate
-  rows: 10,
-  start: 40,
+  'p-id': `categoryPathId:"474ddd511>49012"`, // TODO: Dynamically generate
+  rows: 0,
+  start: 0,
   variants: true,
   'variants.count': 0,
   filter: null as any,
@@ -31,6 +31,6 @@ const options: Options = {
 
 const response = fetchL3Categories(options)
   .then((res) => {
-    console.log("Horace final", res.data.response.products.length);
+    console.log("Horace final", res.data);
   })
   .catch(err => console.log(err));

@@ -109,6 +109,19 @@ export const fetchL3Categories = (options: Options): Promise<any> => {
       }
       if (firstResponse) {
         firstResponse.data.response.numberOfProducts = numberOfProducts;
+      } else {
+        // Return an empty response to mimick Solr
+        firstResponse = {
+          data: {
+            response: {
+              numberOfProducts: 0,
+              products: [],
+              start: 0,
+            },
+            facets: {},
+            searchMetaData: {},
+          }
+        };
       }
       res(firstResponse);
     } catch (e) {
