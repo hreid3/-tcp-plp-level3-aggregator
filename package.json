@@ -1,5 +1,5 @@
 {
-  "name": "@tcp/plp-level3-aggregator",
+  "name": "plp-level3-aggregator",
   "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -11,6 +11,7 @@
   "scripts": {
     "dts": "dts-generator --out types/index.d.ts --project . --prefix @tcp/plp-level3-aggregator",
     "build": "rollup -c --exports named",
+    "lint": "tslint --project tsconfig.json  --config tslint.json",
     "watch": "rollup -cw",
     "test": "jest",
     "debug": "node -r ts-node/register --inspect debug.ts",
